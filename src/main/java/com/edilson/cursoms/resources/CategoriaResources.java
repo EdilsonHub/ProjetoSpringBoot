@@ -22,6 +22,7 @@ public class CategoriaResources {
 		
 		lista.add(categoria1);
 		lista.add(categoria2);
+//		lista.forEach(n);
 		
 		
 		return lista;
