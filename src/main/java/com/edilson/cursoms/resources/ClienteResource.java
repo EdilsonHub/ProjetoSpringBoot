@@ -2,24 +2,22 @@ package com.edilson.cursoms.resources;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
-import com.edilson.cursoms.domain.Categoria;
-import com.edilson.cursoms.services.CategoriaService;
+import com.edilson.cursoms.services.ClienteServices;
 
-@RestController
-@RequestMapping(value="/categorias")
-public class CategoriaResources {
+@Controller
+@RequestMapping(value="/clientes")
+public class ClienteResource {
 	
 	@Autowired
-	private CategoriaService categoriaService; 
+	private ClienteServices clienteServices;
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id) {
-		Categoria obj = categoriaService.buscar(id);		
-		return ResponseEntity.ok().body(obj);
+		return ResponseEntity.ok().body(clienteServices.buscar(id));
 	}
 }

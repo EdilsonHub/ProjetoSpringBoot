@@ -20,10 +20,16 @@ public class CategoriaService {
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado id: " + id + ", Tipo: " + Categoria.class.getName()));
 	}
-
-	// Codigo para funcionar no java 7
-	// public Categoria buscar(Integer id) {
-	// Categoria obj = repo.findOne(id);
-	// return obj;
-	// }
 }
+
+
+
+
+
+
+
+// Codigo para funcionar no java 7
+// public Categoria buscar(Integer id) {
+// Categoria obj = repo.findOne(id);
+// return obj;
+// }
