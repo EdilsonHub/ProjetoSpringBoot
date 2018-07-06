@@ -24,6 +24,7 @@ public class Produto implements Serializable {
 	private Integer id;
 	private String nome;
 	private Double preco;
+//	private List<Pedido> pedidos = new ArrayList<>();
 	
 	@JsonBackReference
 	@ManyToMany
@@ -98,4 +99,12 @@ public class Produto implements Serializable {
 			return false;
 		return true;
 	}
+
+//	public List<Pedido> getPedidos() {
+//		return pedidos;
+//	}
+//
+//	public void setPedidos(List<Pedido> pedidos) {
+//		this.pedidos = pedidos;
+//	}
 }
