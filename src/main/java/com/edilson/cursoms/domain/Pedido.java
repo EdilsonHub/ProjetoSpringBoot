@@ -3,7 +3,10 @@ package com.edilson.cursoms.domain;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
 //import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -12,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -34,6 +38,9 @@ public class Pedido implements Serializable {
 	@OneToOne(cascade=CascadeType.ALL, mappedBy="pedido")
 	private Pagamento pagamento; 
 	
+	@OneToMany(mappedBy="id.pedido")
+	private Set<ItemPedido> itens = new HashSet<>(); 
+	
 //	private List<Produto> itens = new ArrayList<>();
 	
 	public Pedido(){}
@@ -44,8 +51,14 @@ public class Pedido implements Serializable {
 		this.instante = instante;
 		this.enderecoDeEntrega = enderecoDeEntrega;
 		this.cliente = cliente;
-		this.pagamento = pagamento;
+		//this.pagamento = pagamento;
 	}
+	 
+	public List<Pedido> getPedidos(){
+		List<Pedido> lista = new ArrayList<>();
+		itens.forEach(n -> lista.add(n.getPedido()));		
+		return lista;
+	}	
 	
 	@Override
 	public int hashCode() {
@@ -112,9 +125,9 @@ public class Pedido implements Serializable {
 		this.pagamento = pagamento;
 	}
 
-//	public List<Produto> getItens() {
-//		return itens;
-//	}
+	public Set<ItemPedido> getItens() {
+		return itens;
+	}
 //
 //	public void setItens(List<Produto> itens) {
 //		this.itens = itens;

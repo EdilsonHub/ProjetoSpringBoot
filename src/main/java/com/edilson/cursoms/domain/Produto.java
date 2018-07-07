@@ -2,7 +2,9 @@ package com.edilson.cursoms.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -32,7 +35,8 @@ public class Produto implements Serializable {
 	joinColumns = @JoinColumn(name = "produto_id"), 
 	inverseJoinColumns = @JoinColumn(name = "categoria_id"))
 	private List<Categoria> categorias = new ArrayList<>();
-
+	@OneToMany(mappedBy="id.produto")
+	private Set<ItemPedido> itens = new HashSet<>(); 
 	public Produto() {
 	}
 
@@ -47,6 +51,16 @@ public class Produto implements Serializable {
 		return categorias;
 	}
 
+	public Set<ItemPedido> getItens() {
+		return itens;
+	}
+	
+	public List<Pedido> getPedidos(){
+		List<Pedido> lista = new ArrayList<>();
+		itens.forEach(n -> lista.add(n.getPedido()));		
+		return lista;
+	}
+	
 	public void setCategorias(List<Categoria> categorias) {
 		this.categorias = categorias;
 	}

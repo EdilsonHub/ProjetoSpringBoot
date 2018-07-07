@@ -13,6 +13,7 @@ import com.edilson.cursoms.domain.Cidade;
 import com.edilson.cursoms.domain.Cliente;
 import com.edilson.cursoms.domain.Endereco;
 import com.edilson.cursoms.domain.Estado;
+import com.edilson.cursoms.domain.ItemPedido;
 import com.edilson.cursoms.domain.Pagamento;
 import com.edilson.cursoms.domain.PagamentoComBoleto;
 import com.edilson.cursoms.domain.PagamentoComCartao;
@@ -25,6 +26,7 @@ import com.edilson.cursoms.repositories.CidadeRepository;
 import com.edilson.cursoms.repositories.ClienteRepository;
 import com.edilson.cursoms.repositories.EnderecoRepository;
 import com.edilson.cursoms.repositories.EstadoRepository;
+import com.edilson.cursoms.repositories.ItemPedidoRepository;
 import com.edilson.cursoms.repositories.PagamentoRepository;
 import com.edilson.cursoms.repositories.PedidoRepository;
 import com.edilson.cursoms.repositories.ProdutoRepository;
@@ -48,6 +50,8 @@ public class CursomcApplication implements CommandLineRunner{
 	private PedidoRepository pedidoRepository;
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 	
 	
 	
@@ -111,5 +115,19 @@ public class CursomcApplication implements CommandLineRunner{
 		
 		pagamentoRepository.saveAll(Arrays.asList(pagt1,pagt2));
 		pedidoRepository.saveAll(Arrays.asList(ped1,ped2));
+		
+		
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 2000.00);
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 80.00);
+		ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 1, 800.00);
+		
+		ped1.getItens().addAll(Arrays.asList(ip1,ip2));
+		ped2.getItens().addAll(Arrays.asList(ip3));
+		
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p2.getItens().addAll(Arrays.asList(ip3));
+		p3.getItens().addAll(Arrays.asList(ip2));
+		
+		itemPedidoRepository.saveAll(Arrays.asList(ip1,ip2,ip3));
 	}
 }
