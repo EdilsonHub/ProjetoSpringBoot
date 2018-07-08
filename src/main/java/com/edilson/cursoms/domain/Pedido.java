@@ -1,10 +1,8 @@
 package com.edilson.cursoms.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 //import java.util.List;
 import java.util.Set;
 
@@ -18,6 +16,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Pedido implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -25,16 +26,20 @@ public class Pedido implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
+	
+	@JsonFormat(pattern="dd/MM/yyyy HH:mm")
 	private Date instante;
 	
 	@ManyToOne
 	@JoinColumn(name="endereco_de_entrega_id")
 	private Endereco enderecoDeEntrega;
 	
+	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name="cliente_id")
 	private Cliente cliente;
 	
+	@JsonManagedReference
 	@OneToOne(cascade=CascadeType.ALL, mappedBy="pedido")
 	private Pagamento pagamento; 
 	
@@ -54,11 +59,11 @@ public class Pedido implements Serializable {
 		//this.pagamento = pagamento;
 	}
 	 
-	public List<Pedido> getPedidos(){
-		List<Pedido> lista = new ArrayList<>();
-		itens.forEach(n -> lista.add(n.getPedido()));		
-		return lista;
-	}	
+//	public List<Pedido> getPedidos(){
+//		List<Pedido> lista = new ArrayList<>();
+//		itens.forEach(n -> lista.add(n.getPedido()));		
+//		return lista;
+//	}	
 	
 	@Override
 	public int hashCode() {

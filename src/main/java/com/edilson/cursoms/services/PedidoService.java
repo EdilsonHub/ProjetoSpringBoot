@@ -5,19 +5,19 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.edilson.cursoms.domain.Cliente;
-import com.edilson.cursoms.repositories.ClienteRepository;
+import com.edilson.cursoms.domain.Pedido;
+import com.edilson.cursoms.repositories.PedidoRepository;
 import com.edilson.cursoms.services.exceptions.ObjectNotFoundException;
 
 @Service
-public class ClienteServices {
+public class PedidoService {
 	
 	@Autowired
-	private ClienteRepository repo;
+	private PedidoRepository repo;
 
-	public Cliente buscar(Integer id) {
-		Optional<Cliente> obj = repo.findById(id);
+	public Pedido buscar(Integer id) {
+		Optional<Pedido> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado id: " + id + ", Tipo: " + Cliente.class.getName()));
+				"Objeto não encontrado id: " + id + ", Tipo: " + Pedido.class.getName()));
 	}
 }
