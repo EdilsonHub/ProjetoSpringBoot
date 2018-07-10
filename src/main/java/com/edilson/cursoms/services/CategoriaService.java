@@ -1,15 +1,16 @@
 package com.edilson.cursoms.services;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.edilson.cursoms.domain.Categoria;
-import com.edilson.cursoms.dtos.CategoriaDTO;
 import com.edilson.cursoms.repositories.CategoriaRepository;
 import com.edilson.cursoms.services.exceptions.DataIntegrityException;
 import com.edilson.cursoms.services.exceptions.ObjectNotFoundException;
@@ -47,6 +48,11 @@ public class CategoriaService {
 
 	public List<Categoria> findAll() {
 		return this.repo.findAll();
+	}
+	
+	public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction),orderBy);
+		return this.repo.findAll(pageRequest);
 	}
 }
 

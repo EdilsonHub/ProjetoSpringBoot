@@ -129,5 +129,23 @@ public class CursomcApplication implements CommandLineRunner{
 		p3.getItens().addAll(Arrays.asList(ip2));
 		
 		itemPedidoRepository.saveAll(Arrays.asList(ip1,ip2,ip3));
+		
+		//novas categorias apenas para teste da ende point page
+		categoriaRepository.saveAll(Arrays.asList(
+					new Categoria(null, "Contrução de  robos"),
+					new Categoria(null, "Brinquedos"),
+					new Categoria(null, "Armas de fogo"),
+					new Categoria(null, "Armas de água"),
+					new Categoria(null, "Verduras"),
+					new Categoria(null, "Coisas de nerd"),
+					new Categoria(null, "Remédios"),
+					new Categoria(null, "Coisa de matar mostros"),
+					new Categoria(null, "Nada de Cobaias por aqui")
+				));
+		
+		
+		
+		
+		
 	}
 }
