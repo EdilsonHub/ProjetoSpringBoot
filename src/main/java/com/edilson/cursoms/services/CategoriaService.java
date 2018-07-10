@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.edilson.cursoms.domain.Categoria;
+import com.edilson.cursoms.dtos.CategoriaDTO;
 import com.edilson.cursoms.repositories.CategoriaRepository;
 import com.edilson.cursoms.services.exceptions.DataIntegrityException;
 import com.edilson.cursoms.services.exceptions.ObjectNotFoundException;
@@ -53,6 +54,9 @@ public class CategoriaService {
 	public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction),orderBy);
 		return this.repo.findAll(pageRequest);
+	}
+	public Categoria fromDTO(CategoriaDTO catDto) {
+		return new Categoria(catDto.getId(),catDto.getNome());
 	}
 }
 
