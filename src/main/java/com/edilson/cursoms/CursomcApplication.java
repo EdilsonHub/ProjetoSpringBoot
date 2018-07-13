@@ -56,7 +56,7 @@ public class CursomcApplication implements CommandLineRunner{
 	
 	
 	public static void main(String[] args) {
-		SpringApplication.run(CursomcApplication.class, args);
+		SpringApplication.run(CursomcApplication.class, args); // o Spring não está lançando a exeção MethodArgumentNotValidException então não é possivel capturá-la no @controllerAdivice
 	}
 
 	@Override
