@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.edilson.cursoms.domain.Categoria;
+import com.edilson.cursoms.domain.Cliente;
 import com.edilson.cursoms.dtos.CategoriaDTO;
 import com.edilson.cursoms.repositories.CategoriaRepository;
 import com.edilson.cursoms.services.exceptions.DataIntegrityException;
@@ -33,8 +34,9 @@ public class CategoriaService {
 		return repo.save(obj);
 	}
 	
-	public Categoria update(Categoria obj) {
-		this.find(obj.getId());
+	public Categoria update(Categoria newObj) {
+		Categoria obj = this.find(newObj.getId());
+		this.updateFromData(newObj, obj);
 		return repo.save(obj);
 	}
 
@@ -57,6 +59,10 @@ public class CategoriaService {
 	}
 	public Categoria fromDTO(CategoriaDTO catDto) {
 		return new Categoria(catDto.getId(),catDto.getNome());
+	}
+	
+	private void updateFromData(Categoria newObj, Categoria obj) {
+		obj.setNome(newObj.getNome());
 	}
 }
 
