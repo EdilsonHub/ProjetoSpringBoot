@@ -1,5 +1,6 @@
 package com.edilson.cursoms.resources;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.edilson.cursoms.domain.Cliente;
 import com.edilson.cursoms.dtos.ClienteDTO;
+import com.edilson.cursoms.dtos.ClienteNewDTO;
 import com.edilson.cursoms.services.ClienteService;
 
 @Controller
@@ -31,23 +34,21 @@ public class ClienteResource {
 		return ResponseEntity.ok().body(clienteService.find(id));
 	}
 	
-//	@RequestMapping(method=RequestMethod.POST)
-//	public ResponseEntity<Void> insert(@Valid @RequestBody ClienteDTO objDTO){
-//		
-////		objDTO = categoriaService.insert(categoriaService.fromDTO(objDTO)) Por que não posso fazer assim???
-//		
-//		Categoria obj = clienteService.fromDTO(objDTO);
-//		obj = clienteService.insert(obj);
-//		
-//		URI uri = ServletUriComponentsBuilder
-//				.fromCurrentRequest()
-//				.path("/{id}")
-//				.buildAndExpand(obj
-//				.getId())
-//				.toUri();
-//		
-//		return ResponseEntity.created(uri).build();		
-//	}
+	@RequestMapping(method=RequestMethod.POST)
+	public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO objDTO){
+			
+		Cliente obj = clienteService.fromDTO(objDTO);
+		obj = clienteService.insert(obj);
+		
+		URI uri = ServletUriComponentsBuilder
+				.fromCurrentRequest()
+				.path("/{id}")
+				.buildAndExpand(obj
+				.getId())
+				.toUri();
+		
+		return ResponseEntity.created(uri).build();		
+	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
 	public ResponseEntity<Void> update(@Valid @RequestBody ClienteDTO objDTO, @PathVariable Integer id) {

@@ -11,7 +11,6 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.edilson.cursoms.domain.Categoria;
-import com.edilson.cursoms.domain.Cliente;
 import com.edilson.cursoms.dtos.CategoriaDTO;
 import com.edilson.cursoms.repositories.CategoriaRepository;
 import com.edilson.cursoms.services.exceptions.DataIntegrityException;
