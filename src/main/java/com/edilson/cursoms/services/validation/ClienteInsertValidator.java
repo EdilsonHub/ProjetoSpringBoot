@@ -6,18 +6,21 @@ import java.util.List;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.edilson.cursoms.dtos.ClienteNewDTO;
 import com.edilson.cursoms.enums.TipoCliente;
+import com.edilson.cursoms.repositories.ClienteRepository;
 import com.edilson.cursoms.resources.exception.FieldMessage;
 import com.edilson.cursoms.services.validation.pacoteBR.BR;
 
 public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert, ClienteNewDTO>{
 
-	public ClienteInsertValidator() {
-		// TODO Auto-generated constructor stub
-	}
+	@Autowired
+	private ClienteRepository clienteRepository;
 	
-	
+	public ClienteInsertValidator() {}
+		
 	@Override
 	public void initialize(ClienteInsert ann) {}
 
@@ -31,7 +34,11 @@ public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert
 		
 		if(objDTO.getTipo().equals(TipoCliente.PESSOAJURIDICA.getCod()) && !BR.isValidCNPJ(objDTO.getCpfOuCnpj())) {
 			list.add(new FieldMessage("cpfOuCnpj", "CNPJ inválido"));
-		}		
+		}
+		
+		if(clienteRepository.findByEmail(objDTO.getEmail()) != null) {
+			list.add(new FieldMessage("email", "email já possui um conta"));
+		}
 		
 		for(FieldMessage e: list) {
 			context.disableDefaultConstraintViolation();

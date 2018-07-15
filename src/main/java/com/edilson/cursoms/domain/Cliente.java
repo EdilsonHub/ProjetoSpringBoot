@@ -15,8 +15,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import org.hibernate.annotations.Cascade;
-
 import com.edilson.cursoms.enums.TipoCliente;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
