@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.Length;
 
 import com.edilson.cursoms.domain.Categoria;
 
+
 public class CategoriaDTO {
 	
 	private Integer id;
