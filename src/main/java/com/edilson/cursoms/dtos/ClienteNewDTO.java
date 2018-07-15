@@ -2,20 +2,41 @@ package com.edilson.cursoms.dtos;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
+import com.edilson.cursoms.services.validation.ClienteInsert;
+
+@ClienteInsert //anotação personalizada, favor ver imports
 public class ClienteNewDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	@Length(min=5, max=120, message="A quantidade deve estar entre 5 e 120 caractéres")
+	@NotEmpty(message="Preencimento Obrigatório")
 	private String nome;
+	
+	@NotEmpty(message="Preencimento Obrigatório")
+	@Email(message="Email inválido!")
 	private String email;
+	
+	@NotEmpty(message="Preencimento Obrigatório")
 	private String cpfOuCnpj;
 	private Integer tipo;
 	
+	@NotEmpty(message="Preencimento Obrigatório")
 	private String logradouro;
+	
+	@NotEmpty(message="Preencimento Obrigatório")
 	private String numero;
 	private String complemento;
 	private String Bairro;
+	
+	@NotEmpty(message="Preencimento Obrigatório")
 	private String cep;
 	
+	@NotEmpty(message="Preencimento Obrigatório")
 	private String telefone1;
 	private String telefone2;
 	private String telefone3;
